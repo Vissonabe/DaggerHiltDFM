@@ -6,6 +6,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.example.network.NetworkUtils
 import com.kienht.dagger.hilt.feature.model.CounterState
 
 /**
@@ -26,5 +27,9 @@ class FeatureSharedNavViewModel @ViewModelInject constructor(
     fun onMinusClicked(): Unit {
         --localCounter
         counterValue.value = CounterState(localCounter)
+    }
+
+    init {
+        NetworkUtils.isNetworkAvailable()
     }
 }
