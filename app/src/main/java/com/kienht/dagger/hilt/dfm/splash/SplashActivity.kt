@@ -40,5 +40,10 @@ class SplashActivity : AppCompatActivity() {
             val clazz = Class.forName("com.kienht.dagger.hilt.feature.FeatureActivity")
             startActivity(Intent(this, clazz))
         }
+
+        binding.chatFeature.setOnClickListener {
+            val clazz = Class.forName("com.example.chatfeature.NavActivity")
+            startActivity(Intent(this, clazz))
+        }
     }
 }

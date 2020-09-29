@@ -19,5 +19,12 @@
             android:layout_marginTop="50dp"
             android:text="Go To Feature" />
 
+        <Button
+            android:id="@+id/chat_feature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="Go To Chat" />
+
     </LinearLayout>
 </layout>

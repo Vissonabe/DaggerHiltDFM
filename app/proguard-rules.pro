@@ -14,8 +14,19 @@
 
 # Uncomment this to preserve the line number information for
 # debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+-keepattributes SourceFile,LineNumberTable
+-keepattributes *Annotation*
+-keepattributes Signature
+-keepattributes InnerClasses
+-keepattributes EnclosingMethod
 
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
-#-renamesourcefileattribute SourceFile
+-renamesourcefileattribute SourceFile
+
+# Keep Activity and other class names
+-keepnames public class * extends android.app.Application
+-keepnames public class * extends android.app.Activity
+-keepnames public class * extends android.app.Fragment
+-keepnames public class * extends android.app.Service
+-keepnames public class * extends android.content.BroadcastReceiver
