@@ -3,3 +3,8 @@ include ':core'
 include ':app'
 rootProject.name = "DaggerHiltDFM"
 include ':chatfeature'
+
+include ':coreUi'
+include ':network'
+project(':coreUi').projectDir = new File(rootProject.projectDir.getAbsolutePath() + "/modules/coreUi")
+project(':network').projectDir = new File(rootProject.projectDir.getAbsolutePath() + "/modules/network")

@@ -4,6 +4,7 @@ import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.example.network.NetworkUtils
 import com.kienht.dagger.hilt.core.UserModel
 import com.kienht.dagger.hilt.core.di.UserModelSingletonQualifier
 
@@ -19,5 +20,9 @@ class SplashViewModel @ViewModelInject constructor(
     fun get(key: String) = savedStateHandle.getLiveData<String>(key)
 
     fun put(key: String, value: String) = savedStateHandle.set(key, value)
+
+    init {
+        println(NetworkUtils.isNetworkAvailable())
+    }
 
 }
