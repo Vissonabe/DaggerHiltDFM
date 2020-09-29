@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
-    package="com.kienht.dagger.hilt.feature">
+    package="com.example.feature">
 
     <dist:module
         dist:instant="false"
@@ -13,7 +13,7 @@
 
     <application>
         <activity
-            android:name=".FeatureActivity"
+            android:name="com.example.feature.FeatureActivity"
             android:screenOrientation="portrait" />
     </application>
 </manifest>

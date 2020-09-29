@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/featureListFragment"
-        android:name="com.kienht.dagger.hilt.feature.list.FeatureListFragment"
+        android:name="com.example.feature.list.FeatureListFragment"
         android:label="FeatureListFragment">
 
         <action
@@ -20,6 +20,6 @@
 
     <fragment
         android:id="@+id/featureDetailFragment"
-        android:name="com.kienht.dagger.hilt.feature.detail.FeatureDetailFragment"
+        android:name="com.example.feature.detail.FeatureDetailFragment"
         android:label="FeatureDetailFragment" />
 </navigation>

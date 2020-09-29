@@ -1,0 +1,80 @@
+package com.example.feature.list
+
+import android.content.Context
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.platform.ComposeView
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
+import com.example.core.DFMSavedStateViewModelFactory
+import com.example.core.UserModel
+import com.example.core.di.UserModelSingletonQualifier
+import com.example.feature.FeatureActivityViewModel
+import com.example.feature.FeatureSharedNavViewModel
+import com.example.feature.R
+import com.example.feature.model.CounterState
+import timber.log.Timber
+import javax.inject.Inject
+
+/**
+ * @author kienht
+ * @since 15/09/2020
+ */
+class FeatureListFragment : Fragment() {
+
+    @Inject
+    @UserModelSingletonQualifier
+    lateinit var singletonUserModel: UserModel
+
+    @Inject
+    lateinit var savedStateViewModelFactory: DFMSavedStateViewModelFactory
+
+    private val featureActivityViewModel by activityViewModels<FeatureActivityViewModel> { savedStateViewModelFactory }
+
+    private val featureListViewModel by viewModels<FeatureListViewModel> { savedStateViewModelFactory }
+
+    private val featureSharedNavViewModel by navGraphViewModels<FeatureSharedNavViewModel>(R.id.feature_nav_graph) { savedStateViewModelFactory }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(
+            R.layout.feature_list_fragment, container, false
+        ).apply {
+            findViewById<ComposeView>(R.id.compose_list).setContent {
+                featureSharedNavViewModel.counterValue.observeAsState(initial = CounterState(0)).value.let {
+                    textCompose(it)
+                }
+            }
+        }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        inject(context)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        Timber.e("singleton userModel = $singletonUserModel")
+        singletonUserModel.value += " => FeatureListFragment"
+
+        Timber.e("userModel of Activity= ${featureActivityViewModel.userModel}")
+        Timber.e("userModel of Fragment = ${featureListViewModel.userModel}")
+
+        view.findViewById<Button>(R.id.button_detail)
+            .setOnClickListener {
+                findNavController().navigate(FeatureListFragmentDirections.goToFeatureDetailFragment())
+            }
+    }
+}
