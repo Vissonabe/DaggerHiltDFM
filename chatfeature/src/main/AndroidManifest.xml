@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
-    package="com.example.chatfeature">
+    package="com.viswa.chatfeature">
 
     <dist:module
         dist:instant="false"
@@ -14,7 +14,9 @@
     </dist:module>
 
     <application>
-        <activity android:name=".NavActivity"></activity>
+        <activity android:name="com.viswa.chatfeature.NavActivity">
+            <nav-graph android:value="@navigation/chat_navigation"/>
+        </activity>
     </application>
 
 </manifest>

@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/modules/coreUi" />
+            <option value="$PROJECT_DIR$/modules/deeplink" />
             <option value="$PROJECT_DIR$/modules/network" />
           </set>
         </option>

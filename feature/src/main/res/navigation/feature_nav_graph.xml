@@ -6,20 +6,24 @@
 
     <fragment
         android:id="@+id/featureListFragment"
-        android:name="com.example.feature.list.FeatureListFragment"
+        android:name="com.viswa.feature.list.FeatureListFragment"
         android:label="FeatureListFragment">
-
         <action
             android:id="@+id/go_to_featureDetailFragment"
             app:destination="@id/featureDetailFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right" />
+            app:popExitAnim="@android:anim/slide_out_right">
+            <argument
+                android:name="movieItem"
+                app:argType="com.viswa.feature.model.MovieItem"
+                app:nullable="true" />
+        </action>
     </fragment>
 
     <fragment
         android:id="@+id/featureDetailFragment"
-        android:name="com.example.feature.detail.FeatureDetailFragment"
+        android:name="com.viswa.feature.detail.FeatureDetailFragment"
         android:label="FeatureDetailFragment" />
 </navigation>

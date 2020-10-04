@@ -22,16 +22,22 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.chatfeature.conversation.ConversationFragment"
-        android:label="Conversation" />
+        android:name="com.viswa.chatfeature.conversation.ConversationFragment"
+        android:label="Conversation">
+
+    </fragment>
 
     <fragment
         android:id="@+id/nav_profile"
-        android:name="com.example.chatfeature.profile.ProfileFragment"
+        android:name="com.viswa.chatfeature.profile.ProfileFragment"
         android:label="Profile">
         <argument
             android:name="userId"
             app:argType="string" />
+        <deepLink
+            android:id="@+id/deepLink2"
+            android:autoVerify="true"
+            app:uri="www.ddfm.com/chat/profile/{userId}" />
     </fragment>
 
 </navigation>

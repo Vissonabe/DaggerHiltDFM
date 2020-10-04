@@ -8,3 +8,5 @@ include ':coreUi'
 include ':network'
 project(':coreUi').projectDir = new File(rootProject.projectDir.getAbsolutePath() + "/modules/coreUi")
 project(':network').projectDir = new File(rootProject.projectDir.getAbsolutePath() + "/modules/network")
+include ':deeplink'
+project(':deeplink').projectDir = new File(rootProject.projectDir.getAbsolutePath() + "/modules/deeplink")

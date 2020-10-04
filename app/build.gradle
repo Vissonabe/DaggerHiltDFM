@@ -10,6 +10,8 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
+    def localVersionCode = 0
+    def localVersionName = "0"
     def versionPropsFile = file('version.properties')
 
     if (versionPropsFile.canRead()) {
@@ -17,18 +19,37 @@ android {
 
         versionProps.load(new FileInputStream(versionPropsFile))
 
-        def code = versionProps['VERSION_CODE'].toInteger() + 1
+//        def code = versionProps['VERSION_CODE'].toInteger() + 1
+//        versionProps['VERSION_CODE'] = code.toString()
 
-        versionProps['VERSION_CODE'] = code.toString()
+        def value = 0
+
+        def runTasks = gradle.startParameter.taskNames
+        if ('assemble' in runTasks || 'assembleRelease' in runTasks || 'aR' in runTasks) {
+            value = 1;
+        }
+
+        def versionMajor = 1
+        def versionMinor = 0
+        def versionPatch = versionProps['VERSION_PATCH'].toInteger() + value
+        def versionBuild = versionProps['VERSION_BUILD'].toInteger() + 1
+        def versionNumber = versionProps['VERSION_NUMBER'].toInteger() + value
+
+        versionProps['VERSION_PATCH'] = versionPatch.toString()
+        versionProps['VERSION_BUILD'] = versionBuild.toString()
+        versionProps['VERSION_NUMBER'] = versionNumber.toString()
+
         versionProps.store(versionPropsFile.newWriter(), null)
 
+        def releaseName = "${versionMajor}.${versionMinor}.${versionPatch}(${versionBuild})"
+        localVersionName = releaseName
 
         defaultConfig {
-            applicationId "com.kienht.dagger.hilt.dfm"
+            applicationId "com.viswa.dfm"
             minSdkVersion 21
             targetSdkVersion 30
-            versionCode code
-            versionName "1.0.1"
+            versionCode versionNumber
+            versionName releaseName
 
             testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -38,8 +59,8 @@ android {
         throw new GradleException("Could not read version.properties!")
     }
 
-//    def buildDate = new Date().format('dd-MM')
-//    setProperty("archivesBaseName", "DDFM-$versionName($versionCode)-$buildDate")
+    def buildDate = new Date().format('dd-MM')
+    setProperty("archivesBaseName", "ddfm-$localVersionName-$buildDate")
 
     buildFeatures {
         dataBinding = true
@@ -57,6 +78,7 @@ android {
     buildTypes {
 
         debug {
+            applicationIdSuffix ".debug"
             minifyEnabled false
             resValue "string", "app_name", "DDFM Debug"
         }
@@ -88,6 +110,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation project(':core')
     implementation project(':coreUi')
+    implementation project(':deeplink')
     api project(':network')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
