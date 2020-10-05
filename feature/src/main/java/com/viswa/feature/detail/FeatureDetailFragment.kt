@@ -14,7 +14,6 @@ import androidx.navigation.navGraphViewModels
 import com.viswa.core.DFMSavedStateViewModelFactory
 import com.viswa.core.UserModel
 import com.viswa.core.di.UserModelSingletonQualifier
-import com.viswa.dfm.databinding.SplashActivityBinding
 import com.viswa.feature.FeatureActivityViewModel
 import com.viswa.feature.FeatureSharedNavViewModel
 import com.viswa.feature.R

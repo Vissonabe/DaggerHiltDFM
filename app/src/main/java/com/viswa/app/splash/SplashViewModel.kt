@@ -25,4 +25,6 @@ class SplashViewModel @ViewModelInject constructor(
         println(NetworkUtils.isNetworkAvailable())
     }
 
+    fun getTempString() = "sfsdfsdfs"
+
 }

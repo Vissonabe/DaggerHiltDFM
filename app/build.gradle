@@ -155,6 +155,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.0-alpha07"
 
     implementation "com.google.dagger:hilt-android:2.29.1-alpha"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt "com.google.dagger:hilt-compiler:2.29.1-alpha"
 
     implementation 'androidx.hilt:hilt-common:1.0.0-alpha02'
