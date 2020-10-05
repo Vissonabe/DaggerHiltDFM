@@ -30,3 +30,5 @@
 -keepnames public class * extends android.app.Fragment
 -keepnames public class * extends android.app.Service
 -keepnames public class * extends android.content.BroadcastReceiver
+
+-keepnames class com.viswa.feature.model.MovieItem

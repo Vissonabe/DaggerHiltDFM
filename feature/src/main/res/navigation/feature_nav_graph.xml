@@ -15,15 +15,17 @@
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right">
-            <argument
-                android:name="movieItem"
-                app:argType="com.viswa.feature.model.MovieItem"
-                app:nullable="true" />
         </action>
     </fragment>
 
     <fragment
         android:id="@+id/featureDetailFragment"
         android:name="com.viswa.feature.detail.FeatureDetailFragment"
-        android:label="FeatureDetailFragment" />
+        android:label="FeatureDetailFragment">
+        <argument
+            android:name="movieItem"
+            android:defaultValue="@null"
+            app:argType="com.viswa.feature.model.MovieItem"
+            app:nullable="true" />
+    </fragment>
 </navigation>

@@ -38,6 +38,12 @@ android {
         kotlinCompilerExtensionVersion compose_version
     }
 
+    buildTypes {
+        releaseDebug {
+            debuggable true
+        }
+    }
+
 
 }
 

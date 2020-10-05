@@ -64,7 +64,7 @@ class FeatureListFragment : Fragment() {
     }
 
     private fun onClickAction(item : MovieItem) {
-        findNavController().navigate(FeatureListFragmentDirections.goToFeatureDetailFragment(item))
+        findNavController().navigate(FeatureListFragmentDirections.goToFeatureDetailFragment(movieItem = item))
     }
 
     override fun onAttach(context: Context) {

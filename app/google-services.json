@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "593086255755",
+    "firebase_url": "https://ddfm-7dc6a.firebaseio.com",
+    "project_id": "ddfm-7dc6a",
+    "storage_bucket": "ddfm-7dc6a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:593086255755:android:a50d293b0ea520fff7fa8e",
+        "android_client_info": {
+          "package_name": "com.viswa.dfm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "593086255755-paca9d7ho62qd3bsau09q5kk0vi0naf8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFlCmCp5zsDQHxwZFwb36fMYX0WKQffXo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "593086255755-paca9d7ho62qd3bsau09q5kk0vi0naf8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:593086255755:android:84cdddb66ac60ee0f7fa8e",
+        "android_client_info": {
+          "package_name": "com.viswa.dfm.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "593086255755-paca9d7ho62qd3bsau09q5kk0vi0naf8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFlCmCp5zsDQHxwZFwb36fMYX0WKQffXo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "593086255755-paca9d7ho62qd3bsau09q5kk0vi0naf8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:593086255755:android:34ca793d89332e4df7fa8e",
+        "android_client_info": {
+          "package_name": "com.viswa.dfm.releaseDebug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "593086255755-paca9d7ho62qd3bsau09q5kk0vi0naf8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFlCmCp5zsDQHxwZFwb36fMYX0WKQffXo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "593086255755-paca9d7ho62qd3bsau09q5kk0vi0naf8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

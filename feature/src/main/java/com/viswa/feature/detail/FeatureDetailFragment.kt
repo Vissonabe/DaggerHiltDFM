@@ -19,6 +19,7 @@ import com.viswa.feature.FeatureActivityViewModel
 import com.viswa.feature.FeatureSharedNavViewModel
 import com.viswa.feature.R
 import com.viswa.feature.model.CounterState
+import com.viswa.feature.model.MovieItem
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -68,5 +69,9 @@ class FeatureDetailFragment : Fragment() {
 
         Timber.e("userModel of Activity= ${featureActivityViewModel.userModel}")
         Timber.e("userModel of Fragment = ${featureDetailViewModel.userModel}")
+
+        val movieItem = FeatureDetailFragmentArgs.fromBundle(requireArguments()).movieItem as MovieItem?
+
+        println("xxx detail page ${movieItem}")
     }
 }

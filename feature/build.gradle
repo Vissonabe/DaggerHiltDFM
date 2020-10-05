@@ -41,6 +41,18 @@ android {
         experimental = true
         features = ["parcelize"]
     }
+
+    buildTypes {
+        releaseDebug {
+//            useProguard true
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            debuggable true
+        }
+
+        release {
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
 }
 
 kapt {

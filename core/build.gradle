@@ -25,6 +25,10 @@ android {
             suppressWarnings = true
         }
     }
+    buildTypes {
+        releaseDebug {
+        }
+    }
 }
 
 kapt {
