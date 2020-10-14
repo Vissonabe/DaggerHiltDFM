@@ -6,6 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 import com.viswa.deeplink.IDeeplinkHandler
 import com.viswa.dfm.R
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,7 +23,13 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity(R.layout.splash_activity) {
 
-    private val splashViewModel by viewModels<SplashViewModel>()
+    companion object {
+        const val eventKey = "first_event_key"
+    }
+
+//    private val splashViewModel by viewModels<SplashViewModel>()
+
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
 //    private lateinit var binding: SplashActivityBinding
 
@@ -52,7 +62,16 @@ class SplashActivity : AppCompatActivity(R.layout.splash_activity) {
 //            startActivity(Intent(this, clazz))
 //        }
 
+        firebaseAnalytics = Firebase.analytics
         onNewIntent(intent)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        firebaseAnalytics.logEvent(eventKey) {
+            param(FirebaseAnalytics.Param.ITEM_ID, "id")
+        }
     }
 
     override fun onNewIntent(intent: Intent?) {

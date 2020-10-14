@@ -8,43 +8,71 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.0.1"
+        classpath "com.android.tools.build:gradle:4.0.2"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.0"
         classpath 'com.google.dagger:hilt-android-gradle-plugin:2.29.1-alpha'
         classpath 'com.google.gms:google-services:4.3.4'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.3.0'
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.17.2"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
 
-plugins {
-    id 'com.diffplug.spotless' version '5.1.1'
-}
-
 allprojects {
     repositories {
         google()
         jcenter()
-    }
-
-    apply plugin: 'com.diffplug.spotless'
-    spotless {
-        kotlin {
-            target '**/*.kt'
-            targetExclude("$buildDir/**/*.kt")
-            targetExclude('bin/**/*.kt')
-
-            ktlint("0.38.1")
-//            licenseHeaderFile rootProject.file('spotless/copyright.kt')
+        mavenCentral()
+        maven { url 'https://maven.fabric.io/public' }
+        maven { url "https://jitpack.io" }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        maven {
+            url "https://ddfm.jfrog.io/artifactory/gradle-dev/"
+            credentials {
+                username = "${artifactory_user}"
+                password = "${artifactory_password}"
+            }
         }
     }
+
+//    apply plugin: "com.jfrog.artifactory"
+//    apply plugin: 'maven-publish'
 }
 
-//task clean(type: Delete) {
-//    delete rootProject.buildDir
+//artifactoryPublish.skip = true
+
+//artifactory {
+//    contextUrl = "${artifactory_contextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
+//    publish {
+//        repository {
+//            repoKey = 'gradle-dev-local'
+//            username = "${artifactory_user}"
+//            password = "${artifactory_password}"
+//            maven = true
+//
+//        }
+//    }
+//    resolve {
+//        repository {
+//            repoKey = 'gradle-dev'
+//            username = "${artifactory_user}"
+//            password = "${artifactory_password}"
+//            maven = true
+//
+//        }
+//    }
 //}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

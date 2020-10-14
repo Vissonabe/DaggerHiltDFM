@@ -2,11 +2,11 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/chat_main_navigation"
-    app:moduleName="chatfeature"
     app:startDestination="@id/navActivity">
 
     <activity
         android:id="@+id/navActivity"
         android:name="com.viswa.chatfeature.NavActivity"
-        android:label="ChatNavActivity" />
+        android:label="ChatNavActivity"
+        app:moduleName="chatfeature" />
 </navigation>

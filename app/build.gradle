@@ -67,7 +67,7 @@ android {
             applicationId "com.viswa.dfm"
             minSdkVersion 21
             targetSdkVersion 30
-            versionCode versionNumber
+            versionCode versionBuild
             versionName releaseName
             consumerProguardFiles 'proguard-rules.pro'
 
@@ -122,6 +122,10 @@ android {
 
     dynamicFeatures = [':feature', ':chatfeature']
 
+    packagingOptions {
+        exclude("META-INF/**.version")
+    }
+
     androidExtensions {
         experimental = true
         features = ["parcelize"]
@@ -141,7 +145,13 @@ dependencies {
     implementation project(':core')
     implementation project(':coreUi')
     implementation project(':deeplink')
-    api project(':network')
+
+
+    if (gradle.ext.useNetworkLocal) {
+        api project(':network')
+    } else {
+        api "DDFM:network:1.0.1"
+    }
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.5.0-alpha02'
@@ -181,5 +191,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     // Add the Firebase Crashlytics SDK.
     implementation 'com.google.firebase:firebase-crashlytics-ktx:17.2.2'
+
+    implementation 'com.google.firebase:firebase-analytics-ktx:17.5.0'
 
 }
