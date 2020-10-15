@@ -45,12 +45,6 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-task allktlint() {
-    dependsOn(':chatfeature:ktlint')
-    dependsOn(':app:ktlint')
-
-}
-
 subprojects { it ->
     println("submodule name $it")
     apply from: "$project.rootDir/quality/kotlin-code-quality.gradle"
