@@ -46,6 +46,10 @@ task clean(type: Delete) {
 }
 
 subprojects { it ->
+    println(it)
     println("submodule name $it")
-    apply from: "$project.rootDir/quality/kotlin-code-quality.gradle"
+    if("$it" == "project ':app'" || "$it" == "project ':chatfeature'" || "$it" == "project ':feature'" || "$it" == "project ':core'") {
+        println("adding quality for submodule name $it")
+        apply from: "$project.rootDir/quality/kotlin-code-quality.gradle"
+    }
 }
