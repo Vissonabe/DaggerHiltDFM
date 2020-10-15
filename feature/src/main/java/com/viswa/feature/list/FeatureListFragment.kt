@@ -40,7 +40,7 @@ class FeatureListFragment : Fragment() {
     private val featureListViewModel by viewModels<FeatureListViewModel> { savedStateViewModelFactory }
 
     private val featureSharedNavViewModel
-        by navGraphViewModels<FeatureSharedNavViewModel>(R.id.feature_nav_graph) { savedStateViewModelFactory }
+    by navGraphViewModels<FeatureSharedNavViewModel>(R.id.feature_nav_graph) { savedStateViewModelFactory }
 
     override fun onCreateView(
         inflater: LayoutInflater,

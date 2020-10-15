@@ -52,8 +52,10 @@ class ChatProcessor @Inject constructor(
                 flags = getIntentFlags()
             }
             childIntent.flags = getIntentFlags()
-            println("xxx childIntent: ${childIntent.component?.className} " +
-                "parentIntent: ${parentIntent.component?.className}")
+            println(
+                "xxx childIntent: ${childIntent.component?.className} " +
+                    "parentIntent: ${parentIntent.component?.className}"
+            )
             if (childIntent.component?.className != SplashActivity::class.java.canonicalName) {
                 taskStackBuilder.addNextIntent(parentIntent)
             }
