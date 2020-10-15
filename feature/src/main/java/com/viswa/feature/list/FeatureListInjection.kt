@@ -54,7 +54,8 @@ interface FeatureListFragmentComponent {
     includes = [
         FeatureListViewModel_HiltModule::class,
         FeatureSharedNavViewModel_HiltModule::class,
-        FragmentViewModelModule::class]
+        FragmentViewModelModule::class
+    ]
 )
 @InstallIn(FragmentComponent::class)
 abstract class FeatureListFragmentModule {

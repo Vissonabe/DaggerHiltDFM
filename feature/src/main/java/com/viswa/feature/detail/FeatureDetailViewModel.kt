@@ -14,5 +14,4 @@ import com.viswa.core.di.UserModelFeatureQualifier
 class FeatureDetailViewModel @ViewModelInject constructor(
     @UserModelFeatureQualifier val userModel: UserModel,
     @Assisted private val savedStateHandle: SavedStateHandle
-) : ViewModel() {
-}
+) : ViewModel()

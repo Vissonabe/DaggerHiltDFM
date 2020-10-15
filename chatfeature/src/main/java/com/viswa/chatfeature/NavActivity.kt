@@ -1,8 +1,8 @@
 package com.viswa.chatfeature
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -13,8 +13,8 @@ import com.google.android.material.navigation.NavigationView
 
 class NavActivity : AppCompatActivity() {
 
-    private lateinit var drawerLayout : DrawerLayout
-    private lateinit var appBarConfiguration : AppBarConfiguration
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

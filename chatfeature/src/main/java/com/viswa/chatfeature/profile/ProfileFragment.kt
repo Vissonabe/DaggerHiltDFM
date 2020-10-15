@@ -55,7 +55,6 @@ class ProfileFragment : Fragment() {
                             ProfileScreen(
                                 userData = userData,
                                 onNavIconPressed = {
-                                    // TODO: Replace with Scaffold
                                     (activity as? NavActivity)?.openDrawer()
                                 }
                             )

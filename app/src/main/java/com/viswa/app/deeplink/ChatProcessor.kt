@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
-import com.viswa.app.MyApplication
 import com.viswa.app.splash.SplashActivity
 import com.viswa.core.constants.LAUNCH_SOURCE_DEEPLINK
 import com.viswa.core.utils.UriHelper
@@ -15,8 +14,10 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ChatProcessor @Inject constructor(val chatResolver : IChatLinkResolver,
- @ApplicationContext val appContext: Context) : IDeeplinkProcessor {
+class ChatProcessor @Inject constructor(
+    val chatResolver: IChatLinkResolver,
+    @ApplicationContext val appContext: Context
+) : IDeeplinkProcessor {
     override fun matches(intent: Intent): Boolean {
         return chatResolver.resolve(intent.dataString)
     }
@@ -29,12 +30,12 @@ class ChatProcessor @Inject constructor(val chatResolver : IChatLinkResolver,
         return mIntent
     }
 
-    private fun processIntentToUri(intent: Intent) : Uri? {
+    private fun processIntentToUri(intent: Intent): Uri? {
         val dataString = intent.dataString
-        var processedUri : Uri? = null
-        if(!dataString.isNullOrEmpty()) {
+        var processedUri: Uri? = null
+        if (!dataString.isNullOrEmpty()) {
             val uri = UriHelper(dataString)
-            if(uri.pathSegments.size >= 2 && uri.pathSegments[1].contains("")){
+            if (uri.pathSegments.size >= 2 && uri.pathSegments[1].contains("")) {
                 processedUri = uri.uri
             }
         } else {
@@ -51,7 +52,8 @@ class ChatProcessor @Inject constructor(val chatResolver : IChatLinkResolver,
                 flags = getIntentFlags()
             }
             childIntent.flags = getIntentFlags()
-            println("xxx childIntent: ${childIntent.component?.className} parentIntent: ${parentIntent.component?.className}")
+            println("xxx childIntent: ${childIntent.component?.className} " +
+                "parentIntent: ${parentIntent.component?.className}")
             if (childIntent.component?.className != SplashActivity::class.java.canonicalName) {
                 taskStackBuilder.addNextIntent(parentIntent)
             }

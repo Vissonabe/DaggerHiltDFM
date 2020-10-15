@@ -2,7 +2,6 @@ package com.viswa.app.deeplink
 
 import com.viswa.core.constants.SCREEN_NAME_CHAT
 import com.viswa.core.utils.UriHelper
-import com.viswa.deeplink.IDeeplinkResolver
 import javax.inject.Inject
 
 class ChatResolver @Inject constructor() : IChatLinkResolver {
@@ -12,7 +11,7 @@ class ChatResolver @Inject constructor() : IChatLinkResolver {
             val host = uri.host
             val pathSegments = uri.pathSegments
             return (host.isNotEmpty() && host == SCREEN_NAME_CHAT) ||
-                    (pathSegments.size >= 1 && pathSegments[0].contains(SCREEN_NAME_CHAT))
+                (pathSegments.size >= 1 && pathSegments[0].contains(SCREEN_NAME_CHAT))
         }
         return false
     }

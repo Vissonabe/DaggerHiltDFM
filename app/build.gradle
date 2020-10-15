@@ -7,6 +7,7 @@ apply plugin: 'dagger.hilt.android.plugin'
 apply from: "$project.rootDir/compose.gradle"
 apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'com.google.gms.google-services'
+//apply from: "../ktlint.gradle"
 
 android {
     signingConfigs {
@@ -70,7 +71,7 @@ android {
             versionCode versionBuild
             versionName releaseName
             consumerProguardFiles 'proguard-rules.pro'
-
+            vectorDrawables.useSupportLibrary = true
             testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
             resConfigs "en", "fr"
@@ -84,6 +85,12 @@ android {
 
     buildFeatures {
         dataBinding = true
+    }
+
+    lintOptions {
+        warningsAsErrors false
+        abortOnError false
+        disable 'InvalidPackage', 'VectorPath'
     }
 
     compileOptions {
@@ -139,6 +146,8 @@ kapt {
         option("-Xmaxerrs", 500)
     }
 }
+
+
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])

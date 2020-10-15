@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.viswa.core.DFMSavedStateViewModelFactory
 import com.viswa.core.UserModel
 import com.viswa.core.di.UserModelSingletonQualifier
-import com.viswa.feature.R.*
+import com.viswa.feature.R.layout
 import timber.log.Timber
 import javax.inject.Inject
 

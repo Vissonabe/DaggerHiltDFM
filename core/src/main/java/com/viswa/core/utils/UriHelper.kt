@@ -44,23 +44,23 @@ class UriHelper(var deepLinkString: String) {
         val length = deepLinkString.length
         val ssi = deepLinkString.indexOf(':')
         // If "//" follows the scheme separator, we have an authority.
-        if (length > ssi + 2
-            && deepLinkString[ssi + 1] == '/'
-            && deepLinkString[ssi + 2] == '/') {
+        if (length > ssi + 2 &&
+            deepLinkString[ssi + 1] == '/' &&
+            deepLinkString[ssi + 2] == '/'
+        ) {
             // We have an authority.
             // Look for the start of the path, query, or fragment, or the
             // end of the string.
             var end = ssi + 3
             LOOP@ while (end < length) {
                 when (deepLinkString[end]) {
-                    '/' // Start of path
-                        , '\\'// Start of path
-                        ,
-                        // Per http://url.spec.whatwg.org/#host-state, the \ character
-                        // is treated as if it were a / character when encountered in a
-                        // host
-                    '?' // Start of query
-                        , '#' // Start of fragment
+                    '/', // Start of path
+                    '\\', // Start of path
+                    // Per http://url.spec.whatwg.org/#host-state, the \ character
+                    // is treated as if it were a / character when encountered in a
+                    // host
+                    '?', // Start of query
+                    '#' // Start of fragment
                     -> break@LOOP
                 }
                 end++

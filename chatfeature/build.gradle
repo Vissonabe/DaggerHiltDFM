@@ -4,6 +4,7 @@ apply from: "$project.rootDir/compose.gradle"
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
+//apply from: "../ktlint.gradle"
 
 android {
     compileSdkVersion 30

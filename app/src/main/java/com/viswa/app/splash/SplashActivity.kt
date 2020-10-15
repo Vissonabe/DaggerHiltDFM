@@ -1,11 +1,8 @@
 package com.viswa.app.splash
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import androidx.activity.viewModels
-import androidx.lifecycle.Observer
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
@@ -13,7 +10,6 @@ import com.google.firebase.ktx.Firebase
 import com.viswa.deeplink.IDeeplinkHandler
 import com.viswa.dfm.R
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -34,7 +30,7 @@ class SplashActivity : AppCompatActivity(R.layout.splash_activity) {
 //    private lateinit var binding: SplashActivityBinding
 
     @Inject
-    lateinit var deeplinkHandler : IDeeplinkHandler
+    lateinit var deeplinkHandler: IDeeplinkHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

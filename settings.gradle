@@ -1,5 +1,5 @@
 gradle.ext {
-    useNetworkLocal = true
+    useNetworkLocal = false
 }
 
 rootProject.name = "DDFM"

@@ -2,11 +2,11 @@ package com.viswa.app.splash
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.viewModels
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.viswa.dfm.R
@@ -18,10 +18,11 @@ class SplashFragment : Fragment() {
 
     private val splashViewModel by viewModels<SplashViewModel>()
 
-    private lateinit var fragmentSplashBinding : FragmentSplashBinding
+    private lateinit var fragmentSplashBinding: FragmentSplashBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment

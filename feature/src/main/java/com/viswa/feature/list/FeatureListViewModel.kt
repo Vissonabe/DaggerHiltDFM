@@ -3,17 +3,14 @@ package com.viswa.feature.list
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import androidx.lifecycle.viewModelScope
 import com.viswa.core.UserModel
 import com.viswa.core.di.UserModelFeatureQualifier
 import com.viswa.feature.model.MovieCollection
 import com.viswa.feature.model.MovieItem
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 /**
  * @author kienht
@@ -24,10 +21,10 @@ class FeatureListViewModel @ViewModelInject constructor(
     @Assisted private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private var cachedMovieList : MovieCollection? = null
+    private var cachedMovieList: MovieCollection? = null
 
-    fun getMovieCollectionData() : LiveData<MovieCollection> = liveData {
-        if(cachedMovieList == null) {
+    fun getMovieCollectionData(): LiveData<MovieCollection> = liveData {
+        if (cachedMovieList == null) {
             val data = getDummyMovieCollection()
             cachedMovieList = data
         }
@@ -36,10 +33,10 @@ class FeatureListViewModel @ViewModelInject constructor(
         }
     }
 
-    private suspend fun getDummyMovieCollection() : MovieCollection{
+    private suspend fun getDummyMovieCollection(): MovieCollection {
         delay(2000)
         val items = mutableListOf<MovieItem>()
-        for (i in 0..100){
+        for (i in 0..100) {
             items.add(MovieItem(id = i.toString(), title = "title movie $i", imdbRating = i))
         }
         return MovieCollection(items)

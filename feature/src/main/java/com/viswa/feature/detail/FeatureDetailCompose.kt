@@ -11,13 +11,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.Dp
 
 @Composable
-fun getContentView(counterValue : Int, plusClick : () -> Unit, minusClick : () -> Unit) {
+fun getContentView(counterValue: Int, plusClick: () -> Unit, minusClick: () -> Unit) {
     Column(
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally) {
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Row {
             Text(text = "value is ")
-            Text(text = "${counterValue}")
+            Text(text = "$counterValue")
         }
         Row {
             Button(onClick = plusClick, contentPadding = PaddingValues(Dp(20f))) {
@@ -27,6 +28,5 @@ fun getContentView(counterValue : Int, plusClick : () -> Unit, minusClick : () -
                 Text(text = "-")
             }
         }
-
     }
 }

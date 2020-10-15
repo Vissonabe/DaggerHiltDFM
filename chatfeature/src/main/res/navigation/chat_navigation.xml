@@ -37,7 +37,6 @@
             app:argType="string" />
         <deepLink
             android:id="@+id/deepLink2"
-            android:autoVerify="true"
             app:uri="www.ddfm.com/chat/profile/{userId}" />
     </fragment>
 
