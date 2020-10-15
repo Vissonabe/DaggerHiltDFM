@@ -152,14 +152,23 @@ kapt {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation project(':core')
-    implementation project(':coreUi')
-    implementation project(':deeplink')
-
 
     if (gradle.ext.useNetworkLocal) {
         api project(':network')
     } else {
         api "DDFM:network:1.0.1"
+    }
+
+    if (gradle.ext.useCoreUiLocal) {
+        api project(':coreUi')
+    } else {
+        api "modules:coreUi:1.0.1"
+    }
+
+    if (gradle.ext.useDeeplinkLocal) {
+        api project(':deeplink')
+    } else {
+        api "modules:deeplink:1.0.1"
     }
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
