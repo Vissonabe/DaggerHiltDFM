@@ -19,11 +19,11 @@ jobs:
       - name: Build
         run: ./gradlew build
         
-        - name: Assemble Release Bundle
+      - name: Assemble Release Bundle
         run: |
           ./gradlew bundleRelease
           
-        - name: Sign Release
+      - name: Sign Release
         uses: r0adkll/sign-android-release@v1
         with:
           releaseDirectory: app/build/outputs/bundle/release
@@ -32,7 +32,7 @@ jobs:
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
           
-        - name: Tag Release
+      - name: Tag Release
         run: |
           version_name=${GITHUB_REF##*/}
           echo "Tagging release with tag $version_name"
@@ -46,7 +46,7 @@ jobs:
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJson: service_account.json
-          packageName: com.visa.ddfm
+          packageName: com.visa.dfm
           releaseFile: app/build/outputs/bundle/release/app-release.aab
           track: internal
           whatsNewDirectory: distribution/
