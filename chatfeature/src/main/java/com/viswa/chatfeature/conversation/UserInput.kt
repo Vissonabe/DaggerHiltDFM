@@ -329,7 +329,7 @@ private fun UserInputSelector(
             contentColor = contentColor,
             backgroundColor = backgroundColor,
             border = border,
-            contentPadding = PaddingValues(0.dp) // TODO: Workaround for b/158830170
+            contentPadding = PaddingValues(0.dp)
         ) {
             Text(
                 stringResource(id = R.string.send),
@@ -503,7 +503,7 @@ fun ExtendedSelectorInnerButton(
         shape = MaterialTheme.shapes.medium,
         backgroundColor = backgroundColor,
         contentColor = color,
-        contentPadding = PaddingValues(0.dp) // TODO: Workaround for b/158830170
+        contentPadding = PaddingValues(0.dp)
     ) {
         Text(
             text = text,

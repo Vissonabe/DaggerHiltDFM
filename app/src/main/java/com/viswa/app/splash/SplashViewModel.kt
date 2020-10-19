@@ -4,9 +4,9 @@ import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.viswa.network.NetworkUtils
 import com.viswa.core.UserModel
 import com.viswa.core.di.UserModelSingletonQualifier
+import com.viswa.network.NetworkUtils
 
 /**
  * @author kienht
@@ -25,4 +25,5 @@ class SplashViewModel @ViewModelInject constructor(
         println(NetworkUtils.isNetworkAvailable())
     }
 
+    fun getTempString() = "sfsdfsdfs"
 }

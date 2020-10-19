@@ -14,7 +14,6 @@ import androidx.navigation.navGraphViewModels
 import com.viswa.core.DFMSavedStateViewModelFactory
 import com.viswa.core.UserModel
 import com.viswa.core.di.UserModelSingletonQualifier
-import com.viswa.dfm.databinding.SplashActivityBinding
 import com.viswa.feature.FeatureActivityViewModel
 import com.viswa.feature.FeatureSharedNavViewModel
 import com.viswa.feature.R
@@ -40,7 +39,8 @@ class FeatureDetailFragment : Fragment() {
 
     private val featureDetailViewModel by viewModels<FeatureDetailViewModel> { savedStateViewModelFactory }
 
-    private val featureSharedNavViewModel by navGraphViewModels<FeatureSharedNavViewModel>(R.id.feature_nav_graph) { savedStateViewModelFactory }
+    private val featureSharedNavViewModel by
+    navGraphViewModels<FeatureSharedNavViewModel>(R.id.feature_nav_graph) { savedStateViewModelFactory }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,7 +50,11 @@ class FeatureDetailFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setContent {
                 featureSharedNavViewModel.counterValue.observeAsState(initial = CounterState(0)).value.let {
-                    getContentView(it.counterValue, featureSharedNavViewModel::onPlusClicked, featureSharedNavViewModel::onMinusClicked)
+                    getContentView(
+                        it.counterValue,
+                        featureSharedNavViewModel::onPlusClicked,
+                        featureSharedNavViewModel::onMinusClicked
+                    )
                 }
             }
         }
@@ -70,8 +74,9 @@ class FeatureDetailFragment : Fragment() {
         Timber.e("userModel of Activity= ${featureActivityViewModel.userModel}")
         Timber.e("userModel of Fragment = ${featureDetailViewModel.userModel}")
 
-        val movieItem = FeatureDetailFragmentArgs.fromBundle(requireArguments()).movieItem as MovieItem?
+        val movieItem =
+            FeatureDetailFragmentArgs.fromBundle(requireArguments()).movieItem as MovieItem?
 
-        println("xxx detail page ${movieItem}")
+        println("xxx detail page $movieItem")
     }
 }

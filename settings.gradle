@@ -1,12 +1,26 @@
+gradle.ext {
+    useNetworkLocal = false
+    useCoreUiLocal = false
+    useDeeplinkLocal = false
+}
+
+rootProject.name = "DDFM"
 include ':feature'
 include ':core'
 include ':app'
-rootProject.name = "DDFM"
 include ':chatfeature'
 
-include ':coreUi'
-include ':network'
-project(':coreUi').projectDir = new File(rootProject.projectDir.getAbsolutePath() + "/modules/coreUi")
-project(':network').projectDir = new File(rootProject.projectDir.getAbsolutePath() + "/modules/network")
-include ':deeplink'
-project(':deeplink').projectDir = new File(rootProject.projectDir.getAbsolutePath() + "/modules/deeplink")
+if (gradle.ext.useCoreUiLocal) {
+    include ':coreUi'
+    project(':coreUi').projectDir = new File(rootProject.projectDir.getAbsolutePath() + "/modules/coreUi")
+}
+
+if (gradle.ext.useDeeplinkLocal) {
+    include ':deeplink'
+    project(':deeplink').projectDir = new File(rootProject.projectDir.getAbsolutePath() + "/modules/deeplink")
+}
+
+if (gradle.ext.useNetworkLocal) {
+    include ':network'
+    project(':network').projectDir = new File(rootProject.projectDir.getAbsolutePath() + "/modules/network")
+}

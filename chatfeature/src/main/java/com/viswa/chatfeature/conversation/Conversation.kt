@@ -153,7 +153,7 @@ fun ChannelNameBar(
                 Icon(
                     asset = Icons.Outlined.Search,
                     modifier = Modifier
-                        .clickable(onClick = {}) // TODO: Show not implemented dialog.
+                        .clickable(onClick = {})
                         .padding(horizontal = 12.dp, vertical = 16.dp)
                         .preferredHeight(24.dp)
                 )
@@ -161,7 +161,7 @@ fun ChannelNameBar(
                 Icon(
                     asset = Icons.Outlined.Info,
                     modifier = Modifier
-                        .clickable(onClick = {}) // TODO: Show not implemented dialog.
+                        .clickable(onClick = {})
                         .padding(horizontal = 12.dp, vertical = 16.dp)
                         .preferredHeight(24.dp)
                 )
@@ -241,7 +241,6 @@ fun Message(
     isFirstMessageByAuthor: Boolean,
     isLastMessageByAuthor: Boolean
 ) {
-    // TODO: get image from msg.author
     val image = if (isUserMe) {
         imageResource(id = R.drawable.ali)
     } else {

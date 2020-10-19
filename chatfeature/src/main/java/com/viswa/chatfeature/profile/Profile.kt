@@ -80,7 +80,7 @@ fun ProfileScreen(userData: ProfileScreenState, onNavIconPressed: () -> Unit = {
                     Icon(
                         asset = Icons.Outlined.MoreVert,
                         modifier = Modifier
-                            .clickable(onClick = {}) // TODO: Show not implemented dialog.
+                            .clickable(onClick = {})
                             .padding(horizontal = 12.dp, vertical = 16.dp)
                             .preferredHeight(24.dp)
                     )

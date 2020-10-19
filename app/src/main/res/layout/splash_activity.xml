@@ -1,30 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Splash Screen" />
-
-        <Button
-            android:id="@+id/button_feature"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="Go To Feature" />
-
-        <Button
-            android:id="@+id/chat_feature"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="Go To Chat" />
-
-    </LinearLayout>
-</layout>
+<androidx.fragment.app.FragmentContainerView
+    android:name="androidx.navigation.dynamicfeatures.fragment.DynamicNavHostFragment"
+    app:navGraph="@navigation/app_nav_graph"
+    app:defaultNavHost="true"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" />

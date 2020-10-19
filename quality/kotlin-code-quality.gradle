@@ -1,0 +1,53 @@
+repositories {
+    jcenter()
+}
+
+configurations {
+    detekt
+}
+
+dependencies {
+    detekt "io.gitlab.arturbosch.detekt:detekt-cli:1.9.1"
+}
+
+def output = new File(project.buildDir, "reports/detekt/")
+
+task detekt(type: JavaExec, group: "verification", description: "Runs detekt.") {
+    def configFile = project.rootProject.file("quality/detekt.yml")
+    inputs.files(project.fileTree(dir: "src/main/java", include: "**/*.kt"), configFile)
+    outputs.dir(output.toString())
+    main = "io.gitlab.arturbosch.detekt.cli.Main"
+    classpath = project.configurations.detekt
+    args = ["--config", configFile,
+            "--input", project.file("."),
+            "--excludes", "**/resources/**,**/build/**",
+            "--report", "plain:$output/plain.txt,xml:$output/checkstyle.xml,html:$output/report.html"]
+}
+
+configurations {
+    ktlint
+}
+
+dependencies {
+    ktlint "com.pinterest:ktlint:0.38.1"
+}
+
+def outputDir = "${project.buildDir}/reports/ktlint/"
+
+task ktlint(type: JavaExec, group: "verification") {
+    description = "Check Kotlin code style."
+    classpath = configurations.ktlint
+    main = "com.pinterest.ktlint.Main"
+    args = ["--reporter=plain",
+            "--reporter=checkstyle,output=${outputDir}ktlint-checkstyle-report.xml",
+            "src/**/*.kt"]
+}
+
+//check.dependsOn ktlint
+
+task ktlintFormat(type: JavaExec, group: "formatting") {
+    description = "Fix Kotlin code style deviations."
+    classpath = configurations.ktlint
+    main = "com.pinterest.ktlint.Main"
+    args "-F", "src/**/*.kt"
+}

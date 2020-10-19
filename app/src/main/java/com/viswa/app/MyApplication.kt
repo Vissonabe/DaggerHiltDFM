@@ -26,5 +26,4 @@ class MyApplication : Application() {
 
         println("xxx package name is $packageName")
     }
-
 }

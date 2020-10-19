@@ -3,7 +3,7 @@ name: Deploy to Internal
 on:
   push:
     branches:
-      - release_test/**
+      - release-remove/**
 
 jobs:
   deploy:
@@ -16,6 +16,18 @@ jobs:
         with:
           java-version: 1.8
 
+      - name: Cache Gradle Caches
+        uses: actions/cache@v1
+        with:
+          path: ~/.gradle/caches/
+          key: cache-gradle-cache
+
+      - name: Cache Gradle Wrapper
+        uses: actions/cache@v1
+        with:
+          path: ~/.gradle/wrapper/
+          key: cache-gradle-wrapper
+
       - name: Build
         run: ./gradlew build
         
@@ -23,14 +35,14 @@ jobs:
         run: |
           ./gradlew bundleRelease
           
-      - name: Sign Release
-        uses: r0adkll/sign-android-release@v1
-        with:
-          releaseDirectory: app/build/outputs/bundle/release
-          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-          alias: ${{ secrets.ALIAS }}
-          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
+#      - name: Sign Release
+#        uses: r0adkll/sign-android-release@v1
+#        with:
+#          releaseDirectory: app/build/outputs/bundle/release
+#          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+#          alias: ${{ secrets.ALIAS }}
+#          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+#          keyPassword: ${{ secrets.KEY_PASSWORD }}
           
       - name: Tag Release
         run: |
@@ -46,7 +58,7 @@ jobs:
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJson: service_account.json
-          packageName: com.visa.dfm
-          releaseFile: app/build/outputs/bundle/release/app-release.aab
+          packageName: com.viswa.dfm
+          releaseFile: app/build/outputs/bundle/release/ddfm-release.aab
           track: internal
           whatsNewDirectory: distribution/

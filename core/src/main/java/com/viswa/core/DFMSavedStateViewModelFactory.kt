@@ -18,7 +18,8 @@ class DFMSavedStateViewModelFactory(
     owner: SavedStateRegistryOwner,
     defaultArgs: Bundle?,
     private val delegateFactory: SavedStateViewModelFactory,
-    private val viewModelFactories: @JvmSuppressWildcards Map<String, Provider<ViewModelAssistedFactory<out ViewModel>>>,
+    private val viewModelFactories:
+        @JvmSuppressWildcards Map<String, Provider<ViewModelAssistedFactory<out ViewModel>>>,
 ) : AbstractSavedStateViewModelFactory(owner, defaultArgs) {
 
     @SuppressLint("RestrictedApi")

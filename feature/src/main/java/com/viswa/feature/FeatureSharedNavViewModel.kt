@@ -5,8 +5,8 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.viswa.network.NetworkUtils
 import com.viswa.feature.model.CounterState
+import com.viswa.network.NetworkUtils
 
 /**
  * @author kienht
@@ -18,12 +18,12 @@ class FeatureSharedNavViewModel @ViewModelInject constructor(
     var localCounter = 0
     val counterValue = MutableLiveData<CounterState>()
 
-    fun onPlusClicked(): Unit {
+    fun onPlusClicked() {
         localCounter++
         counterValue.value = CounterState(localCounter)
     }
 
-    fun onMinusClicked(): Unit {
+    fun onMinusClicked() {
         --localCounter
         counterValue.value = CounterState(localCounter)
     }

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
@@ -19,7 +18,6 @@ import com.viswa.core.di.UserModelSingletonQualifier
 import com.viswa.feature.FeatureActivityViewModel
 import com.viswa.feature.FeatureSharedNavViewModel
 import com.viswa.feature.R
-import com.viswa.feature.model.CounterState
 import com.viswa.feature.model.MovieItem
 import timber.log.Timber
 import javax.inject.Inject
@@ -41,7 +39,8 @@ class FeatureListFragment : Fragment() {
 
     private val featureListViewModel by viewModels<FeatureListViewModel> { savedStateViewModelFactory }
 
-    private val featureSharedNavViewModel by navGraphViewModels<FeatureSharedNavViewModel>(R.id.feature_nav_graph) { savedStateViewModelFactory }
+    private val featureSharedNavViewModel
+    by navGraphViewModels<FeatureSharedNavViewModel>(R.id.feature_nav_graph) { savedStateViewModelFactory }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,11 +48,13 @@ class FeatureListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(
-            R.layout.feature_list_fragment, container, false
+            R.layout.feature_list_fragment,
+            container,
+            false
         ).apply {
             findViewById<ComposeView>(R.id.compose_list).setContent {
                 featureListViewModel.getMovieCollectionData().observeAsState().value.let {
-                    if(it != null) {
+                    if (it != null) {
                         moviesList(items = it.items, ::onClickAction)
                     } else {
                         movieListNoContent()
@@ -63,7 +64,7 @@ class FeatureListFragment : Fragment() {
         }
     }
 
-    private fun onClickAction(item : MovieItem) {
+    private fun onClickAction(item: MovieItem) {
         findNavController().navigate(FeatureListFragmentDirections.goToFeatureDetailFragment(movieItem = item))
     }
 

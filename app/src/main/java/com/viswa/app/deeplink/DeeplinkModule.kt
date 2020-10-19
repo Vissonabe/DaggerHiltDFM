@@ -17,7 +17,7 @@ abstract class DeeplinkModule {
 
     companion object {
         @Provides @Singleton
-        fun provideDeeplinkHandler(processors : @JvmSuppressWildcards Set<IDeeplinkProcessor>): IDeeplinkHandler {
+        fun provideDeeplinkHandler(processors: @JvmSuppressWildcards Set<IDeeplinkProcessor>): IDeeplinkHandler {
             return DeeplinkHandler(processors)
         }
     }
@@ -27,12 +27,12 @@ abstract class DeeplinkModule {
 @InstallIn(ApplicationComponent::class)
 abstract class DeeplinkProcessorsDependency {
     @Binds @IntoSet
-    abstract fun chatLinkProcessor(processor : ChatProcessor): IDeeplinkProcessor
+    abstract fun chatLinkProcessor(processor: ChatProcessor): IDeeplinkProcessor
 }
 
 @Module
 @InstallIn(ApplicationComponent::class)
 abstract class DeeplinkResolverDependency {
     @Binds @Singleton
-    abstract fun chatLinkResolver(processor : ChatResolver): IChatLinkResolver
+    abstract fun chatLinkResolver(processor: ChatResolver): IChatLinkResolver
 }

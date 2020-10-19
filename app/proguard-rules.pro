@@ -30,3 +30,10 @@
 -keepnames public class * extends android.app.Fragment
 -keepnames public class * extends android.app.Service
 -keepnames public class * extends android.content.BroadcastReceiver
+
+-keepnames class androidx.fragment.app.FragmentContainerView
+-keepnames class androidx.navigation.fragment.NavHostFragment
+-keepnames class androidx.navigation.dynamicfeatures.fragment.DynamicNavHostFragment
+-keep class * extends androidx.fragment.app.Fragment{}
+-keepnames class * extends android.os.Parcelable
+-keepnames class * extends java.io.Serializable

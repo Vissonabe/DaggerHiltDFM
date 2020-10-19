@@ -1,15 +1,15 @@
 package com.viswa.app.splash
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import androidx.activity.viewModels
-import androidx.lifecycle.Observer
+import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 import com.viswa.deeplink.IDeeplinkHandler
-import com.viswa.dfm.databinding.SplashActivityBinding
+import com.viswa.dfm.R
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -17,40 +17,57 @@ import javax.inject.Inject
  * @since 15/09/2020
  */
 @AndroidEntryPoint
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : AppCompatActivity(R.layout.splash_activity) {
 
-    private val splashViewModel by viewModels<SplashViewModel>()
+    companion object {
+        const val eventKey = "first_event_key"
+    }
 
-    private lateinit var binding: SplashActivityBinding
+//    private val splashViewModel by viewModels<SplashViewModel>()
+
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
+
+//    private lateinit var binding: SplashActivityBinding
 
     @Inject
-    lateinit var deeplinkHandler : IDeeplinkHandler
+    lateinit var deeplinkHandler: IDeeplinkHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = SplashActivityBinding.inflate(LayoutInflater.from(this))
-        setContentView(binding.root)
 
-        Timber.e("singleton userModel = ${splashViewModel.singletonUserModel}")
-        splashViewModel.singletonUserModel.value += " => SplashActivity"
+//        binding = SplashActivityBinding.inflate(LayoutInflater.from(this))
+//        setContentView(binding.root)
+//
+//        Timber.e("singleton userModel = ${splashViewModel.singletonUserModel}")
+//        splashViewModel.singletonUserModel.value += " => SplashActivity"
+//
+//        splashViewModel.get("demo_key")
+//            .observe(this, Observer {
+//                Timber.e("demo_key = $it")
+//            })
+//
+//        splashViewModel.put("demo_key", "demo_value")
+//
+//        binding.buttonFeature.setOnClickListener {
+//            val clazz = Class.forName("com.viswa.feature.FeatureActivity")
+//            startActivity(Intent(this, clazz))
+//        }
+//
+//        binding.chatFeature.setOnClickListener {
+//            val clazz = Class.forName("com.viswa.chatfeature.NavActivity")
+//            startActivity(Intent(this, clazz))
+//        }
 
-        splashViewModel.get("demo_key")
-            .observe(this, Observer {
-                Timber.e("demo_key = $it")
-            })
-
-        splashViewModel.put("demo_key", "demo_value")
-
-        binding.buttonFeature.setOnClickListener {
-            val clazz = Class.forName("com.viswa.feature.FeatureActivity")
-            startActivity(Intent(this, clazz))
-        }
-
-        binding.chatFeature.setOnClickListener {
-            val clazz = Class.forName("com.viswa.chatfeature.NavActivity")
-            startActivity(Intent(this, clazz))
-        }
+        firebaseAnalytics = Firebase.analytics
         onNewIntent(intent)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        firebaseAnalytics.logEvent(eventKey) {
+            param(FirebaseAnalytics.Param.ITEM_ID, "id")
+        }
     }
 
     override fun onNewIntent(intent: Intent?) {

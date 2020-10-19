@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/app_nav_graph"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.viswa.app.splash.SplashFragment"
+        android:label="SplashFragment">
+        <action
+            android:id="@+id/action_splashFragment_to_chatNavGraph"
+            app:destination="@id/chatNavGraph" />
+        <action
+            android:id="@+id/action_splashFragment_to_chatNavActivity"
+            app:destination="@id/chatNavActivity" />
+    </fragment>
+
+    <include-dynamic
+        android:id="@+id/chatNavGraph"
+        app:graphPackage="com.viswa.chatfeature"
+        app:graphResName="chat_main_navigation"
+        app:moduleName="chatfeature" />
+
+    <activity
+        android:id="@+id/chatNavActivity"
+        android:name="com.viswa.chatfeature.NavActivity"
+        android:label="activity_chat_feature"
+        app:moduleName="chatfeature" />
+</navigation>

@@ -52,7 +52,6 @@ class ConversationFragment : Fragment() {
                                 )
                             },
                             onNavIconPressed = {
-                                // TODO: Replace with Scaffold
                                 (activity as? NavActivity)?.openDrawer()
                             }
                         )

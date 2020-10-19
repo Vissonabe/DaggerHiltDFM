@@ -10,27 +10,18 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumnFor
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import com.viswa.feature.R
 import com.viswa.feature.model.CounterState
 import com.viswa.feature.model.MovieItem
 
 @Composable
-fun textCompose(state : CounterState) {
+fun textCompose(state: CounterState) {
     Text(text = "${state.counterValue}")
-}
-
-fun movieListLoader() {
-
 }
 
 @Composable
@@ -39,7 +30,7 @@ fun movieListNoContent() {
 }
 
 @Composable
-fun moviesList(items : List<MovieItem>, onClickAction : (MovieItem) -> Unit) {
+fun moviesList(items: List<MovieItem>, onClickAction: (MovieItem) -> Unit) {
     ScrollableColumn() {
         items.forEachIndexed { _, movieItem ->
             movieItemView(movieItem, onClickAction)
@@ -48,7 +39,7 @@ fun moviesList(items : List<MovieItem>, onClickAction : (MovieItem) -> Unit) {
 }
 
 @Composable
-fun movieItemView(item : MovieItem, onClickAction : (MovieItem) -> Unit) {
+fun movieItemView(item: MovieItem, onClickAction: (MovieItem) -> Unit) {
     val modifier = Modifier.clickable(onClick = { onClickAction.invoke(item) })
         .padding(16.dp)
         .fillMaxWidth()
