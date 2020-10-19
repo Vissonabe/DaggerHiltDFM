@@ -1,0 +1,51 @@
+name: Generate Build Debug/Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      buildVariant:
+        description: 'Build variant debug/release'
+        required: true
+        default: 'debug'
+
+jobs:
+  build:
+    name: Build app bundle
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache Gradle Caches
+        uses: actions/cache@v1
+        with:
+          path: ~/.gradle/caches/
+          key: cache-gradle-cache
+
+      - name: Cache Gradle Wrapper
+        uses: actions/cache@v1
+        with:
+          path: ~/.gradle/wrapper/
+          key: cache-gradle-wrapper
+
+      - name: Build dubg aab
+        run: ./gradlew bundleDebug
+        if: github.event.inputs.buildVariant == 'debug'
+
+      - name: Build release aab
+        run: ./gradlew bundleRelease
+        if: github.event.inputs.buildVariant == 'release'
+
+      - name: Upload release app bundle
+        uses: actions/upload-artifact@v2
+        if: github.event.inputs.buildVariant == 'debug'
+        with:
+          name: appbundle
+          path: build/app/outputs/bundle/debug/*
+
+      - name: Upload release app bundle
+        uses: actions/upload-artifact@v2
+        if: github.event.inputs.buildVariant == 'release'
+        with:
+          name: appbundle
+          path: build/app/outputs/bundle/release/ddfm-release.aab
