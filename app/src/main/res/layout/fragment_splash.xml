@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -10,21 +10,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Splash Screen" />
+            android:text="@string/splash_screen_text" />
 
         <Button
             android:id="@+id/button_feature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:text="Go To Feature" />
+            android:text="@string/go_to_feature" />
 
         <Button
             android:id="@+id/chat_feature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:text="Go To Chat" />
+            android:text="@string/go_to_chat" />
 
+        <TextView
+            android:layout_marginTop="50dp"
+            android:id="@+id/build_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            tools:text="build number is 123" />
     </LinearLayout>
 </layout>

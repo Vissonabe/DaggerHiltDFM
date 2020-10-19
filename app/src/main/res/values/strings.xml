@@ -3,4 +3,8 @@
     <string name="title_chatfeature">ChatFeature</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="splash_screen_text">Splash Screen From Develop</string>
+    <string name="go_to_feature">Go To Feature</string>
+    <string name="go_to_chat">Go To Chat</string>
+    <string name="build_template">%s - %s</string>
 </resources>

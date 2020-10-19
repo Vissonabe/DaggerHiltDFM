@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.viswa.dfm.BuildConfig
 import com.viswa.dfm.R
 import com.viswa.dfm.databinding.FragmentSplashBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,7 +26,6 @@ class SplashFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_splash, container, false)
         fragmentSplashBinding = FragmentSplashBinding.bind(view)
         return fragmentSplashBinding.root
@@ -39,13 +39,15 @@ class SplashFragment : Fragment() {
         }
 
         fragmentSplashBinding.chatFeature.setOnClickListener {
-
-//            findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToChatNavGraph())
-
+//          findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToChatNavGraph())
             findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToChatNavActivity())
         }
 
-        println("xxx splash frag viewmodel ${splashViewModel.getTempString()}")
+        val text = resources.getString(R.string.build_template,
+            BuildConfig.BUILD_TYPE,
+            BuildConfig.VERSION_NAME
+        )
+        fragmentSplashBinding.buildNumber.text = text
     }
 
     override fun onDestroy() {

@@ -23,41 +23,13 @@ class SplashActivity : AppCompatActivity(R.layout.splash_activity) {
         const val eventKey = "first_event_key"
     }
 
-//    private val splashViewModel by viewModels<SplashViewModel>()
-
     private lateinit var firebaseAnalytics: FirebaseAnalytics
-
-//    private lateinit var binding: SplashActivityBinding
 
     @Inject
     lateinit var deeplinkHandler: IDeeplinkHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-//        binding = SplashActivityBinding.inflate(LayoutInflater.from(this))
-//        setContentView(binding.root)
-//
-//        Timber.e("singleton userModel = ${splashViewModel.singletonUserModel}")
-//        splashViewModel.singletonUserModel.value += " => SplashActivity"
-//
-//        splashViewModel.get("demo_key")
-//            .observe(this, Observer {
-//                Timber.e("demo_key = $it")
-//            })
-//
-//        splashViewModel.put("demo_key", "demo_value")
-//
-//        binding.buttonFeature.setOnClickListener {
-//            val clazz = Class.forName("com.viswa.feature.FeatureActivity")
-//            startActivity(Intent(this, clazz))
-//        }
-//
-//        binding.chatFeature.setOnClickListener {
-//            val clazz = Class.forName("com.viswa.chatfeature.NavActivity")
-//            startActivity(Intent(this, clazz))
-//        }
-
         firebaseAnalytics = Firebase.analytics
         onNewIntent(intent)
     }
