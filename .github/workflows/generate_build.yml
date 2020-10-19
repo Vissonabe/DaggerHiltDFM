@@ -41,11 +41,11 @@ jobs:
         if: github.event.inputs.buildVariant == 'debug'
         with:
           name: appbundle
-          path: build/app/outputs/bundle/debug/*
+          path: app/build/outputs/bundle/debug/*.aab
 
       - name: Upload release app bundle
         uses: actions/upload-artifact@v2
         if: github.event.inputs.buildVariant == 'release'
         with:
           name: appbundle
-          path: build/app/outputs/bundle/release/ddfm-release.aab
+          path: app/build/outputs/bundle/release/ddfm-release.aab
