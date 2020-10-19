@@ -8,6 +8,11 @@ on:
         required: true
         default: 'debug'
 
+      branchName:
+        description: 'Branch Name (optional)'
+        required: false
+        default: 'master'
+
 jobs:
   build:
     name: Build app bundle
@@ -15,18 +20,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
-      - name: Cache Gradle Caches
-        uses: actions/cache@v1
         with:
-          path: ~/.gradle/caches/
-          key: cache-gradle-cache
-
-      - name: Cache Gradle Wrapper
-        uses: actions/cache@v1
-        with:
-          path: ~/.gradle/wrapper/
-          key: cache-gradle-wrapper
+            ref: ${{github.event.inputs.branchName}}
 
       - name: Build dubg aab
         run: ./gradlew bundleDebug
@@ -36,12 +31,26 @@ jobs:
         run: ./gradlew bundleRelease
         if: github.event.inputs.buildVariant == 'release'
 
-      - name: Upload release app bundle
+      - name: Sign Release
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: app/build/outputs/bundle/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+      - name: Create service_account.json
+        id: createServiceAccount
+        run: echo '${{ secrets.SERVICE_ACCOUNT_JSON }}' > service_account.json
+
+      - name: Upload debug app bundle
         uses: actions/upload-artifact@v2
         if: github.event.inputs.buildVariant == 'debug'
         with:
           name: appbundle
           path: app/build/outputs/bundle/debug/*.aab
+
 
       - name: Upload release app bundle
         uses: actions/upload-artifact@v2

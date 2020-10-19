@@ -7,26 +7,23 @@ apply plugin: 'dagger.hilt.android.plugin'
 apply from: "$project.rootDir/compose.gradle"
 apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'com.google.gms.google-services'
-//apply from: "../ktlint.gradle"
 
 android {
-    signingConfigs {
-        release {
-            def props = new Properties()
-            def fileInputStream = new FileInputStream(file('signing.properties'))
-            props.load(fileInputStream)
-            fileInputStream.close()
-            storeFile = file(props['storeFilePath'])
-            storePassword = props['storePassword']
-            keyAlias = props['keyAlias']
-            keyPassword = props['keyPassword']
 
-//            storeFile=file('../DFM-keystore')
-//            storePassword='V!$351289*'
-//            keyAlias='key0'
-//            keyPassword='V!$351289*'
-        }
-    }
+//    signingConfigs {
+//        release {
+//            def props = new Properties()
+//            def fileInputStream = new FileInputStream(file('signing.properties'))
+//            props.load(fileInputStream)
+//            fileInputStream.close()
+//            storeFile = file(props['storeFilePath'])
+//            storePassword = props['storePassword']
+//            keyAlias = props['keyAlias']
+//            keyPassword = props['keyPassword']
+//
+//        }
+//    }
+
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
@@ -36,11 +33,7 @@ android {
 
     if (versionPropsFile.canRead()) {
         def Properties versionProps = new Properties()
-
         versionProps.load(new FileInputStream(versionPropsFile))
-
-//        def code = versionProps['VERSION_CODE'].toInteger() + 1
-//        versionProps['VERSION_CODE'] = code.toString()
 
         def value = 0
 
@@ -120,7 +113,7 @@ android {
             debuggable true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+//            signingConfig signingConfigs.release
             applicationIdSuffix '.releaseDebug'
             resValue "string", "app_name", "DDFM RD"
         }
@@ -129,7 +122,7 @@ android {
             minifyEnabled true
             resValue "string", "app_name", "DDFM"
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+//            signingConfig signingConfigs.release
         }
     }
 
