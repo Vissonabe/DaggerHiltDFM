@@ -43,7 +43,8 @@ class SplashFragment : Fragment() {
             findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToChatNavActivity())
         }
 
-        val text = resources.getString(R.string.build_template,
+        val text = resources.getString(
+            R.string.build_template,
             BuildConfig.BUILD_TYPE,
             BuildConfig.VERSION_NAME
         )
