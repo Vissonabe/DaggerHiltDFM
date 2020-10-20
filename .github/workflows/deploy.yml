@@ -22,17 +22,17 @@ jobs:
         with:
           java-version: 1.8
 
-      - name: Cache Gradle Caches
-        uses: actions/cache@v1
-        with:
-          path: ~/.gradle/caches/
-          key: cache-gradle-cache
-
-      - name: Cache Gradle Wrapper
-        uses: actions/cache@v1
-        with:
-          path: ~/.gradle/wrapper/
-          key: cache-gradle-wrapper
+#      - name: Cache Gradle Caches
+#        uses: actions/cache@v1
+#        with:
+#          path: ~/.gradle/caches/
+#          key: cache-gradle-cache
+#
+#      - name: Cache Gradle Wrapper
+#        uses: actions/cache@v1
+#        with:
+#          path: ~/.gradle/wrapper/
+#          key: cache-gradle-wrapper
 
       - name: Build
         run: ./gradlew build
@@ -57,22 +57,40 @@ jobs:
 #          git tag $version_name release/$version_name
 #          git push origin --tags
 
+
+#      - name: set version
+#        id: vars
+#        run : |
+#          echo "::set-output name=version_name::${GITHUB_REF##*/}"
+#
+#      - name: Read package.json
+#        id: package
+#        uses: juliangruber/read-file-action@v1
+#        with:
+#          path: ./app/version.properties
+#
+#      - name: Echo package.json
+#        run: |
+#          echo ${{ steps.package.outputs.content }}
+#          echo ${{ steps.vars.outputs.version_name }}
+
       - name: Changelog
         uses: scottbrenner/generate-changelog-action@master
         id: Changelog
         env:
           REPO: ${{ github.repository }}
 
-
       - name: Create Release
         id: create_release
         uses: actions/create-release@latest
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
+          commitish: ${{ github.sha }}
           body: |
+            Changes in this Release
             ${{ steps.Changelog.outputs.changelog }}
           draft: false
           prerelease: false
