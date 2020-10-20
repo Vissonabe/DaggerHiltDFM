@@ -38,4 +38,4 @@ jobs:
           property: 'VERSION_TAG'
 
       - name: Do something with your bumped release version
-        run: echo ${{ steps.vars.outputs.version_name }}-${{ steps.read_property.outputs.value }}
+        run: echo "${{ steps.vars.outputs.version_name }}-${{ steps.read_property.outputs.value }}"
