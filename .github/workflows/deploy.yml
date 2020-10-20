@@ -22,18 +22,6 @@ jobs:
         with:
           java-version: 1.8
 
-#      - name: Cache Gradle Caches
-#        uses: actions/cache@v1
-#        with:
-#          path: ~/.gradle/caches/
-#          key: cache-gradle-cache
-#
-#      - name: Cache Gradle Wrapper
-#        uses: actions/cache@v1
-#        with:
-#          path: ~/.gradle/wrapper/
-#          key: cache-gradle-wrapper
-
       - name: Build
         run: ./gradlew build
         
@@ -49,30 +37,13 @@ jobs:
           alias: ${{ secrets.ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
-          
-#      - name: Tag Release
-#        run: |
-#          version_name=${GITHUB_REF##*/}
-#          echo "Tagging release with tag $version_name"
-#          git tag $version_name release/$version_name
-#          git push origin --tags
 
-
-#      - name: set version
-#        id: vars
-#        run : |
-#          echo "::set-output name=version_name::${GITHUB_REF##*/}"
-#
-#      - name: Read package.json
-#        id: package
-#        uses: juliangruber/read-file-action@v1
-#        with:
-#          path: ./app/version.properties
-#
-#      - name: Echo package.json
-#        run: |
-#          echo ${{ steps.package.outputs.content }}
-#          echo ${{ steps.vars.outputs.version_name }}
+      - name: Read value from Properties-file
+        id: read_property
+        uses: christian-draeger/read-properties@1.0.1
+        with:
+          path: './app/version.properties'
+          property: 'VERSION_TAG'
 
       - name: Changelog
         uses: scottbrenner/generate-changelog-action@master
@@ -80,14 +51,19 @@ jobs:
         env:
           REPO: ${{ github.repository }}
 
+      - name: set version
+        id: vars
+        run: |
+          echo "::set-output name=version_name::${GITHUB_REF##*/}"
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          tag_name: "${{ steps.vars.outputs.version_name }}-${{ steps.read_property.outputs.value }}"
+          release_name: Release ${{ steps.read_property.outputs.value }}
           commitish: ${{ github.sha }}
           body: |
             Changes in this Release
