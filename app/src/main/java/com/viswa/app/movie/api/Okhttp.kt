@@ -14,7 +14,6 @@ const val query_param_key = "api_key"
 val api_key = "139b3efb18532acc15ecb216933c76d0" // getApiKey()
 
 private fun getApiKey() : String {
-    Resources.getSystem().
     val path = "/Users/viswanathan.kp/Downloads/Dagger-Hilt-DFM-master/app/key.txt"
     val properties = Properties()
     File(path).inputStream().let { properties.load(it) }
