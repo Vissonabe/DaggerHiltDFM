@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/app_nav_graph"
     app:startDestination="@id/splashFragment">
 
@@ -14,6 +15,9 @@
         <action
             android:id="@+id/action_splashFragment_to_chatNavActivity"
             app:destination="@id/chatNavActivity" />
+        <action
+            android:id="@+id/action_splashFragment_to_movieFragment"
+            app:destination="@id/movieFragment" />
     </fragment>
 
     <include-dynamic
@@ -27,4 +31,10 @@
         android:name="com.viswa.chatfeature.NavActivity"
         android:label="activity_chat_feature"
         app:moduleName="chatfeature" />
+
+    <fragment
+        android:id="@+id/movieFragment"
+        android:name="com.viswa.app.movie.MovieFragment"
+        android:label="fragment_movie"
+        tools:layout="@layout/fragment_movie" />
 </navigation>

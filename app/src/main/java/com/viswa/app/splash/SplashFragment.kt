@@ -39,8 +39,11 @@ class SplashFragment : Fragment() {
         }
 
         fragmentSplashBinding.chatFeature.setOnClickListener {
-//          findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToChatNavGraph())
             findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToChatNavActivity())
+        }
+
+        fragmentSplashBinding.movieFeature.setOnClickListener {
+            findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToMovieFragment())
         }
 
         val text = resources.getString(

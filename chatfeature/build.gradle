@@ -1,37 +1,11 @@
 apply plugin: 'com.android.dynamic-feature'
-apply plugin: 'kotlin-android'
+apply from: "$project.rootDir/android_common.gradle"
 apply from: "$project.rootDir/compose.gradle"
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
-apply plugin: "androidx.navigation.safeargs.kotlin"
-//apply from: "../ktlint.gradle"
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.2"
-
-    defaultConfig {
-        applicationId "com.example.chatfeature"
-        minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
     buildFeatures {
         viewBinding = true
         compose true
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-        kotlinOptions {
-            jvmTarget = "1.8"
-            suppressWarnings = true
-        }
     }
 
     composeOptions {
@@ -39,54 +13,52 @@ android {
         kotlinCompilerExtensionVersion compose_version
     }
 
-    buildTypes {
-        releaseDebug {
-            debuggable true
-        }
-    }
-
-
-}
-
-kapt {
-    correctErrorTypes true
-}
-
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
-    kotlinOptions {
-        jvmTarget = "1.8"
-        freeCompilerArgs += ["-Xallow-jvm-ir-dependencies", "-Xskip-prerelease-check"]
-    }
 }
 
 dependencies {
     implementation project(":app")
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.1'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    implementation libraries.kotlinstdlib
+    implementation libraries.corektx
+    implementation libraries.appcompat
+    implementation libraries.fragmentktx
+    implementation libraries.constraintlayout
+    implementation libraries.legacy_support_v4
+    implementation libraries.androidMaterial
+    implementation libraries.activityKtx
+
+    //lifecycle
+    implementation libraries.lifecyclelivedataktx
+    implementation libraries.lifecycleviewmodelktx
+    implementation libraries.lifecycleCommonJava8
+    implementation libraries.lifecycleViewmodelSavedstate
+
+    //hilt
+    kapt libraries.hilt_compiler
+    implementation libraries.hilt_android
+    implementation libraries.hilt_common
+    implementation libraries.hilt_lifecycle_viewmodel
+    kapt libraries.hilt_compiler_ktx
+
+    //navigation
+    implementation libraries.navigation_fragment_ktx
+    implementation libraries.navigation_ui_ktx
+    implementation libraries.navigation_dynamic
+
+    //timber
+    implementation libraries.timber
+
+    //testing
+    testImplementation libraries.junit
+    androidTestImplementation libraries.junitExt
+    androidTestImplementation libraries.junitEspresso
     androidTestImplementation 'androidx.annotation:annotation:1.1.0'
 
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.0-alpha07"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0-alpha07"
-    implementation "androidx.lifecycle:lifecycle-common-java8:2.3.0-alpha07"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.0-alpha07"
-
-
-    implementation "com.google.dagger:hilt-android:2.29.1-alpha"
-    kapt "com.google.dagger:hilt-compiler:2.29.1-alpha"
-    implementation 'androidx.hilt:hilt-common:1.0.0-alpha02'
-    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02'
-    kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
-
-    implementation "androidx.navigation:navigation-fragment-ktx:2.3.0"
-    implementation "androidx.navigation:navigation-ui-ktx:2.3.0"
-    implementation "androidx.navigation:navigation-dynamic-features-fragment:2.3.0"
-
-    implementation 'com.jakewharton.timber:timber:4.7.1'
-
+    //retrofit
+    implementation libraries.accompanistcoil
+    implementation libraries.retrofit
+    implementation libraries.moshi
+    implementation libraries.moshikotlin
+    implementation libraries.moshiconverter
+    implementation libraries.loginterceptor
 }

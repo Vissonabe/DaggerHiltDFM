@@ -26,6 +26,13 @@
             android:layout_marginTop="50dp"
             android:text="@string/go_to_chat" />
 
+        <Button
+            android:id="@+id/movie_feature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="@string/open_movie_screen" />
+
         <TextView
             android:layout_marginTop="50dp"
             android:id="@+id/build_number"

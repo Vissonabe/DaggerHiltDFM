@@ -1,0 +1,94 @@
+ext.versions = [
+        appCompatLibVersion  : '1.3.0-alpha02',
+        corektxVersion : '1.5.0-alpha04',
+        fragmentktx : '1.3.0-beta01',
+        constraintlayoutVersion : '2.0.2',
+        lifecyclektxVersion : '2.3.0-beta01',
+        hiltandroidVersion : '2.29.1-alpha',
+        hiltVersion : '1.0.0-alpha02',
+        navigationVersion : '2.3.1',
+        timberVersion: '4.7.1',
+        leakCanaryVersion : '2.4',
+        accompanistcoilVersion : '0.2.2',
+        activityKtxVerion: '1.1.0',
+        junitVersion: '4.13.1',
+        junitExtVersion: '1.1.2',
+        expressoCoreVersion : '3.3.0',
+        androidMaterialVersion : '1.3.0-alpha03',
+]
+
+ext {
+ googleServicesVersion = '4.3.4'
+ firebaseVersion = '2.3.0'
+ jfrogBuild = '4.17.2'
+}
+
+ext.compose_version = '1.0.0-alpha03'
+ext.kotlin_version = "1.4.10"
+
+ext.buildConfigs = [
+        compileSdk : 30,
+        buildTools : "30.0.2",
+        minSdk : 21,
+        targetSdk : 30,
+]
+
+ ext.libraries = [
+        fabricPlugin  : "io.fabric.tools:gradle:$versions.fabricPluginVersion",
+        kotlinstdlib :  "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
+        corektx: "androidx.core:core-ktx:$versions.corektxVersion",
+        appcompat: "androidx.appcompat:appcompat:$versions.appCompatLibVersion",
+        fragmentktx : "androidx.fragment:fragment-ktx:$versions.fragmentktx",
+        constraintlayout: "androidx.constraintlayout:constraintlayout:$versions.constraintlayoutVersion",
+        activityKtx: "androidx.activity:activity-ktx:$versions.activityKtxVerion",
+
+        lifecyclelivedataktx : "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecyclektxVersion",
+        lifecycleviewmodelktx: "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecyclektxVersion",
+        lifecycleCommonJava8: "androidx.lifecycle:lifecycle-common-java8:$versions.lifecyclektxVersion",
+        lifecycleViewmodelSavedstate: "androidx.lifecycle:lifecycle-viewmodel-savedstate:$versions.lifecyclektxVersion",
+
+        hilt_android: "com.google.dagger:hilt-android:$versions.hiltandroidVersion",
+        legacy_support_v4: 'androidx.legacy:legacy-support-v4:1.0.0',
+        hilt_compiler: "com.google.dagger:hilt-compiler:$versions.hiltandroidVersion",
+
+        hilt_common: "androidx.hilt:hilt-common:$versions.hiltVersion",
+        hilt_lifecycle_viewmodel: "androidx.hilt:hilt-lifecycle-viewmodel:$versions.hiltVersion",
+        hilt_work: "androidx.hilt:hilt-work:$versions.hiltVersion",
+        hilt_compiler_ktx: "androidx.hilt:hilt-compiler:$versions.hiltVersion",
+
+        navigation_fragment_ktx: "androidx.navigation:navigation-fragment-ktx:$versions.navigationVersion",
+        navigation_ui_ktx: "androidx.navigation:navigation-ui-ktx:$versions.navigationVersion",
+        navigation_dynamic: "androidx.navigation:navigation-dynamic-features-fragment:$versions.navigationVersion",
+
+        timber: "com.jakewharton.timber:timber:$versions.timberVersion",
+
+        leakcanary: "com.squareup.leakcanary:leakcanary-android:$versions.leakCanaryVersion",
+
+        junit: "junit:junit:$versions.junitVersion",
+        junitExt: "androidx.test.ext:junit:$versions.junitExtVersion",
+        junitEspresso: "androidx.test.espresso:espresso-core:$versions.expressoCoreVersion",
+        androidMaterial: "com.google.android.material:material:$versions.androidMaterialVersion",
+
+        firebaseAnalytics         : 'com.google.firebase:firebase-analytics:17.6.0',
+        firebaseAnalyticsKtx      : "com.google.firebase:firebase-analytics-ktx:17.6.0",
+        firebaseCrashlytics       : 'com.google.firebase:firebase-crashlytics:17.2.2',
+        firebaseCrashlyticsKtx    : 'com.google.firebase:firebase-crashlytics-ktx:17.2.2',
+
+        composeRuntime: "androidx.compose.runtime:runtime:$compose_version",
+        composeUI: "androidx.compose.ui:ui:$compose_version",
+        composeFoundationLayout: "androidx.compose.foundation:foundation-layout:$compose_version",
+         composeMaterial: "androidx.compose.material:material:$compose_version",
+        composeMaterialIcon: "androidx.compose.material:material-icons-extended:$compose_version",
+        composeFoundation: "androidx.compose.foundation:foundation:$compose_version",
+        composeAnimation: "androidx.compose.animation:animation:$compose_version",
+        uiTooling: "androidx.ui:ui-tooling:$compose_version",
+        composeRuntimeLiveData: "androidx.compose.runtime:runtime-livedata:$compose_version",
+        composeRuntimeRxJava: "androidx.compose.runtime:runtime-rxjava2:$compose_version",
+
+        accompanistcoil: "dev.chrisbanes.accompanist:accompanist-coil:$versions.accompanistcoilVersion",
+        retrofit: "com.squareup.retrofit2:retrofit:2.9.0",
+        moshi: "com.squareup.moshi:moshi:1.11.0",
+        moshikotlin: "com.squareup.moshi:moshi-kotlin:1.11.0",
+        moshiconverter: "com.squareup.retrofit2:converter-moshi:2.9.0",
+        loginterceptor: "com.squareup.okhttp3:logging-interceptor:4.9.0",
+]

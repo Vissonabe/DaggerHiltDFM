@@ -34,7 +34,7 @@ class FeatureListViewModel @ViewModelInject constructor(
     }
 
     private suspend fun getDummyMovieCollection(): MovieCollection {
-        delay(2000)
+        delay(1000)
         val items = mutableListOf<MovieItem>()
         for (i in 0..100) {
             items.add(MovieItem(id = i.toString(), title = "title movie $i", imdbRating = i))
