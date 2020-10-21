@@ -1,28 +1,84 @@
 package com.viswa.app.movie
 
-import androidx.compose.animation.*
-import androidx.compose.animation.core.*
-import androidx.compose.foundation.*
+import androidx.compose.animation.DpPropKey
+import androidx.compose.animation.animatedFloat
+import androidx.compose.animation.asDisposableClock
+import androidx.compose.animation.core.AnimatedFloat
+import androidx.compose.animation.core.AnimationClockObservable
+import androidx.compose.animation.core.AnimationVector
+import androidx.compose.animation.core.BaseAnimatedValue
+import androidx.compose.animation.core.FastOutLinearInEasing
+import androidx.compose.animation.core.FloatPropKey
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.SpringSpec
+import androidx.compose.animation.core.TargetAnimation
+import androidx.compose.animation.core.keyframes
+import androidx.compose.animation.core.transitionDefinition
+import androidx.compose.animation.transition
+import androidx.compose.foundation.ScrollableColumn
+import androidx.compose.foundation.ScrollableRow
+import androidx.compose.foundation.Text
 import androidx.compose.foundation.animation.AndroidFlingDecaySpec
 import androidx.compose.foundation.animation.FlingConfig
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.ScrollableController
 import androidx.compose.foundation.gestures.scrollable
-import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.Stack
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ExperimentalComposeApi
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.launchInComposition
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.snapshotFlow
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.ContentDrawScope
+import androidx.compose.ui.DrawLayerModifier
+import androidx.compose.ui.DrawModifier
+import androidx.compose.ui.LayoutModifier
+import androidx.compose.ui.Measurable
+import androidx.compose.ui.MeasureScope
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.gesture.scrollorientationlocking.Orientation
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.*
+import androidx.compose.ui.drawLayer
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.*
-import androidx.compose.ui.platform.*
-import androidx.compose.ui.unit.*
+import androidx.compose.ui.gesture.scrollorientationlocking.Orientation
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorStop
+import androidx.compose.ui.graphics.Outline
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.VerticalGradient
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.AnimationClockAmbient
+import androidx.compose.ui.platform.ConfigurationAmbient
+import androidx.compose.ui.platform.DensityAmbient
+import androidx.compose.ui.platform.InspectableParameter
+import androidx.compose.ui.platform.ParameterElement
+import androidx.compose.ui.unit.Constraints
+import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import com.viswa.app.movie.api.AmbientMovieApi
 import com.viswa.app.movie.api.CastMember
 import com.viswa.app.movie.api.Movie
@@ -32,70 +88,12 @@ import dev.chrisbanes.accompanist.coil.CoilImage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 import kotlin.math.abs
 import kotlin.math.ceil
 import kotlin.math.floor
 import kotlin.math.roundToInt
 import kotlin.reflect.KProperty
 
-/*
-@Immutable
-data class Movie(
-    val title: String,
-    val posterUrl: String, Grad
-        val bgUrl: String,
-    val color: Color,
-    val chips: List<String>,
-    val actors: List<MovieActor> = emptyList(),
-    val introduction: String = ""
-)
-data class MovieActor(
-    val name: String,
-    val image: String
-)
-val movies = listOf(
-    Movie(
-        title = "Good Boys",
-        posterUrl = "https://m.media-amazon.com/images/M/MV5BMTc1NjIzODAxMF5BMl5BanBnXkFtZTgwMTgzNzk1NzM@._V1_.jpg",
-        bgUrl = "https://m.media-amazon.com/images/M/MV5BMTc1NjIzODAxMF5BMl5BanBnXkFtZTgwMTgzNzk1NzM@._V1_.jpg",
-        color = Color.Red,
-        chips = listOf("Action", "Drama", "History"),
-        actors = listOf(
-            MovieActor("Jaoquin Phoenix", "https://image.tmdb.org/t/p/w138_and_h175_face/nXMzvVF6xR3OXOedozfOcoA20xh.jpg"),
-            MovieActor("Robert De Niro", "https://image.tmdb.org/t/p/w138_and_h175_face/cT8htcckIuyI1Lqwt1CvD02ynTh.jpg"),
-            MovieActor("Zazie Beetz", "https://image.tmdb.org/t/p/w138_and_h175_face/sgxzT54GnvgeMnOZgpQQx9csAdd.jpg")
-        ),
-        introduction = "During the 1980s, a failed stand-up comedian is driven insane and turns to a life of crime and chaos in Gotham City while becoming an infamous psychopathic crime figure."
-    ),
-    Movie(
-        title = "Joker",
-        posterUrl = "https://i.etsystatic.com/15963200/r/il/25182b/2045311689/il_794xN.2045311689_7m2o.jpg",
-        bgUrl = "https://images-na.ssl-images-amazon.com/images/I/61gtGlalRvL._AC_SY741_.jpg",
-        color = Color.Blue,
-        chips = listOf("Action", "Drama", "History"),
-        actors = listOf(
-            MovieActor("Jaoquin Phoenix", "https://image.tmdb.org/t/p/w138_and_h175_face/nXMzvVF6xR3OXOedozfOcoA20xh.jpg"),
-            MovieActor("Robert De Niro", "https://image.tmdb.org/t/p/w138_and_h175_face/cT8htcckIuyI1Lqwt1CvD02ynTh.jpg"),
-            MovieActor("Zazie Beetz", "https://image.tmdb.org/t/p/w138_and_h175_face/sgxzT54GnvgeMnOZgpQQx9csAdd.jpg")
-        ),
-        introduction = "During the 1980s, a failed stand-up comedian is driven insane and turns to a life of crime and chaos in Gotham City while becoming an infamous psychopathic crime figure."
-    ),
-    Movie(
-        title = "The Hustle",
-        posterUrl = "https://m.media-amazon.com/images/M/MV5BMTc3MDcyNzE5N15BMl5BanBnXkFtZTgwNzE2MDE0NzM@._V1_.jpg",
-        bgUrl = "https://m.media-amazon.com/images/M/MV5BMTc3MDcyNzE5N15BMl5BanBnXkFtZTgwNzE2MDE0NzM@._V1_.jpg",
-        color = Color.Yellow,
-        chips = listOf("Action", "Drama", "History"),
-        actors = listOf(
-            MovieActor("Jaoquin Phoenix", "https://image.tmdb.org/t/p/w138_and_h175_face/nXMzvVF6xR3OXOedozfOcoA20xh.jpg"),
-            MovieActor("Robert De Niro", "https://image.tmdb.org/t/p/w138_and_h175_face/cT8htcckIuyI1Lqwt1CvD02ynTh.jpg"),
-            MovieActor("Zazie Beetz", "https://image.tmdb.org/t/p/w138_and_h175_face/sgxzT54GnvgeMnOZgpQQx9csAdd.jpg")
-        ),
-        introduction = "During the 1980s, a failed stand-up comedian is driven insane and turns to a life of crime and chaos in Gotham City while becoming an infamous psychopathic crime figure."
-    )
-)
-*/
 val posterAspectRatio = .674f
 
 @Composable
@@ -216,15 +214,17 @@ class CarouselState(
             expanded.animateTo(0f, SpringSpec(stiffness = Spring.StiffnessLow))
         } else {
             expandedIndex = selectedIndex
-            expanded.animateTo(1f, SpringSpec(
-                stiffness = Spring.StiffnessLow,
-                dampingRatio = Spring.DampingRatioLowBouncy
-            ))
+            expanded.animateTo(
+                1f,
+                SpringSpec(
+                    stiffness = Spring.StiffnessLow,
+                    dampingRatio = Spring.DampingRatioLowBouncy
+                )
+            )
         }
     }
     val selectedIndex: Int get() = offsetToIndex(animatedOffset.value, spacingPx)
 }
-
 
 @Composable fun <T> Carousel(
     items: List<T>,
@@ -234,7 +234,6 @@ class CarouselState(
     getForegroundImage: (T) -> Any,
     foregroundContent: @Composable (item: T, expanded: Boolean) -> Unit
 ) {
-    // TODO: think more about this
     state.update(items.size, spacing)
     val spacingPx = state.spacingPx
     val animatedOffset = state.animatedOffset
@@ -302,12 +301,15 @@ class CarouselState(
             Column(
                 Modifier
                     .zIndex(if (expandedIndex == index) 1f else 0f)
-                    .offset(getX = {
-                        center + animatedOffset.value
-                    }, getY = {
-                        val distFromCenter = abs(animatedOffset.value + center) / spacingPx
-                        lerp(0f, 50f, distFromCenter)
-                    })
+                    .offset(
+                        getX = {
+                            center + animatedOffset.value
+                        },
+                        getY = {
+                            val distFromCenter = abs(animatedOffset.value + center) / spacingPx
+                            lerp(0f, 50f, distFromCenter)
+                        }
+                    )
                     .align(Alignment.TopCenter)
             ) {
                 foregroundContent(item, expandedIndex == index)
@@ -394,7 +396,9 @@ fun lerp(start: Float, stop: Float, fraction: Float): Float {
     return (1 - fraction) * start + fraction * stop
 }
 
-fun Modifier.verticalGradient(vararg colors: ColorStop) = this then object : DrawModifier, InspectableParameter {
+fun Modifier.verticalGradient(vararg colors: ColorStop) = this then object :
+    DrawModifier,
+    InspectableParameter {
 
     // naive cache outline calculation if size is the same
     private var lastSize: Size? = null
@@ -450,14 +454,12 @@ fun Modifier.offset(
     }
 }
 
-
 @OptIn(ExperimentalComposeApi::class)
-fun <T, V: AnimationVector> BaseAnimatedValue<T, V>.animateTo(target: () -> T, scope: CoroutineScope) {
+fun <T, V : AnimationVector> BaseAnimatedValue<T, V>.animateTo(target: () -> T, scope: CoroutineScope) {
     snapshotFlow(target)
         .onEach { animateTo(it) }
         .launchIn(scope)
 }
-
 
 val imageWidthKey = DpPropKey()
 val widthKey = DpPropKey()
@@ -477,7 +479,7 @@ fun makePosterTransition(expandedWidth: Dp, normalWidth: Dp) = transitionDefinit
     }
     state(false) { // unexpanded
         this[widthKey] = normalWidth
-        this[imageWidthKey] = normalWidth - 2 * posterPadding
+        this[imageWidthKey] = normalWidth - posterPadding
         this[imageScaleKey] = 1f
         this[imageAlphaKey] = 1f
         this[bodyTranslateKey] = 100f
@@ -533,7 +535,8 @@ fun makePosterTransition(expandedWidth: Dp, normalWidth: Dp) = transitionDefinit
                 .aspectRatio(posterAspectRatio)
                 .clip(RoundedCornerShape(10.dp))
         )
-        Text(movie.title,
+        Text(
+            movie.title,
             fontSize = 24.sp,
             color = Color.Black
         )
@@ -542,7 +545,6 @@ fun makePosterTransition(expandedWidth: Dp, normalWidth: Dp) = transitionDefinit
                 Chip(chip)
             }
         }
-        StarRating(9.0f)
         if (expanded) {
             val api = AmbientMovieApi.current
             launchInComposition {
@@ -603,10 +605,6 @@ fun makePosterTransition(expandedWidth: Dp, normalWidth: Dp) = transitionDefinit
     ) {
         Text("Buy Ticket", color = Color.White)
     }
-}
-
-@Composable fun StarRating(rating: Float) {
-
 }
 
 @Composable fun Chip(label: String, modifier: Modifier = Modifier) {

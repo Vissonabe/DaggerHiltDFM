@@ -1,7 +1,12 @@
 gradle.ext {
+    useAllLocal = false
     useNetworkLocal = false
     useCoreUiLocal = false
     useDeeplinkLocal = false
+
+    useNetworkLocal = useAllLocal || useNetworkLocal
+    useCoreUiLocal = useAllLocal || useNetworkLocal
+    useDeeplinkLocal = useAllLocal || useNetworkLocal
 }
 
 rootProject.name = "DDFM"

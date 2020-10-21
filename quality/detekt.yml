@@ -71,7 +71,7 @@ complexity:
     active: true
     threshold: 100
   LongParameterList:
-    active: true
+    active: false
     functionThreshold: 6
     constructorThreshold: 6
     ignoreDefaultParameters: true
@@ -89,7 +89,7 @@ complexity:
     excludeStringsWithLessThan5Characters: true
     ignoreStringsRegex: '$^'
   TooManyFunctions:
-    active: true
+    active: false
     excludes: "**/test/**,**/androidTest/**,**/*.Test.kt,**/*.Spec.kt,**/*.Spek.kt"
     thresholdInFiles: 15
     thresholdInClasses: 15
@@ -293,7 +293,7 @@ naming:
     excludes: "**/test/**,**/androidTest/**,**/*.Test.kt,**/*.Spec.kt,**/*.Spek.kt"
     classPattern: '[A-Z$][a-zA-Z0-9$]*'
   ConstructorParameterNaming:
-    active: true
+    active: false
     excludes: "**/test/**,**/androidTest/**,**/*.Test.kt,**/*.Spec.kt,**/*.Spek.kt"
     parameterPattern: '[a-z][A-Za-z0-9]*'
     privateParameterPattern: '[a-z][A-Za-z0-9]*'
@@ -345,7 +345,7 @@ naming:
     excludes: "**/test/**,**/androidTest/**,**/*.Test.kt,**/*.Spec.kt,**/*.Spek.kt"
     packagePattern: '^[a-z]+(\.[a-z][A-Za-z0-9]*)*$'
   TopLevelPropertyNaming:
-    active: true
+    active: false
     excludes: "**/test/**,**/androidTest/**,**/*.Test.kt,**/*.Spec.kt,**/*.Spek.kt"
     constantPattern: '[A-Z][_A-Z0-9]*'
     propertyPattern: '[A-Za-z][_A-Za-z0-9]*'
