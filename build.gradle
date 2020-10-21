@@ -1,8 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext.compose_version = '1.0.0-alpha03'
+    apply from: "dependencies.gradle"
 
-    ext.kotlin_version = "1.4.10"
     repositories {
         google()
         jcenter()
@@ -13,15 +12,19 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:4.0.2"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.0"
-        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.29.1-alpha'
-        classpath 'com.google.gms:google-services:4.3.4'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.3.0'
-        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.17.2"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.navigationVersion"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:$versions.hiltandroidVersion"
+        classpath "com.google.gms:google-services:$googleServicesVersion"
+        classpath "com.google.firebase:firebase-crashlytics-gradle:$firebaseVersion"
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:$jfrogBuild"
     }
 }
 
 allprojects {
+
+    def Properties properties = new Properties()
+    properties.load(project.rootProject.file("keystore.properties").newDataInputStream())
+
     repositories {
         google()
         jcenter()
@@ -34,9 +37,22 @@ allprojects {
         maven {
             url "https://ddfm.jfrog.io/artifactory/gradle-dev/"
             credentials {
-                username = "${artifactory_user}"
-                password = "${artifactory_password}"
+                username = properties["artifactory_user"] // "${artifactory_user}"
+                password = properties["artifactory_password"] // "${artifactory_password}"
             }
+        }
+    }
+
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        kotlinOptions {
+            // Treat all Kotlin warnings as errors
+            allWarningsAsErrors = false
+            freeCompilerArgs += '-Xopt-in=kotlin.RequiresOptIn'
+            // Enable experimental coroutines APIs, including Flow
+            freeCompilerArgs += '-Xopt-in=kotlin.Experimental'
+            freeCompilerArgs += ["-Xallow-jvm-ir-dependencies", "-Xskip-prerelease-check"]
+            // Set JVM target to 1.8
+            jvmTarget = "1.8"
         }
     }
 }
@@ -48,7 +64,7 @@ task clean(type: Delete) {
 subprojects { it ->
     println(it)
     println("submodule name $it")
-    if("$it" == "project ':app'" || "$it" == "project ':chatfeature'" || "$it" == "project ':feature'" || "$it" == "project ':core'") {
+    if ("$it" == "project ':app'" || "$it" == "project ':chatfeature'" || "$it" == "project ':feature'" || "$it" == "project ':core'") {
         println("adding quality for submodule name $it")
         apply from: "$project.rootDir/quality/kotlin-code-quality.gradle"
     }

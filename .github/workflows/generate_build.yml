@@ -23,6 +23,20 @@ jobs:
         with:
             ref: ${{github.event.inputs.branchName}}
 
+      - name: Restore Cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Create keystore.properties file
+        id: createKeystoreProperties
+        run: echo '${{ secrets.KEY_STORE_PROPERTIES }}' > keystore.properties
+
       - name: Build deubg aab
         run: ./gradlew bundleDebug
         if: github.event.inputs.buildVariant == 'debug'
